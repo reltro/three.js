@@ -24,7 +24,7 @@ class DragControls extends EventDispatcher {
 
 		_domElement.style.touchAction = 'none'; // disable touch scroll
 
-		let _selected = null, _hovered = null;
+		let _selected = null, _hovered = null, _cursorStyle = "auto";
 
 		const _intersections = [];
 
@@ -33,6 +33,7 @@ class DragControls extends EventDispatcher {
 		const scope = this;
 
 		function activate() {
+			_cursorStyle = _domElement.style.cursor ?? "auto";
 
 			_domElement.addEventListener( 'pointermove', onPointerMove );
 			_domElement.addEventListener( 'pointerdown', onPointerDown );
@@ -48,7 +49,7 @@ class DragControls extends EventDispatcher {
 			_domElement.removeEventListener( 'pointerup', onPointerCancel );
 			_domElement.removeEventListener( 'pointerleave', onPointerCancel );
 
-			_domElement.style.cursor = '';
+			_domElement.style.cursor = _cursorStyle;
 
 		}
 
@@ -111,7 +112,7 @@ class DragControls extends EventDispatcher {
 
 						scope.dispatchEvent( { type: 'hoveroff', object: _hovered } );
 
-						_domElement.style.cursor = 'auto';
+						_domElement.style.cursor = _cursorStyle;
 						_hovered = null;
 
 					}
@@ -131,7 +132,7 @@ class DragControls extends EventDispatcher {
 
 						scope.dispatchEvent( { type: 'hoveroff', object: _hovered } );
 
-						_domElement.style.cursor = 'auto';
+						_domElement.style.cursor = _cursorStyle;
 						_hovered = null;
 
 					}
